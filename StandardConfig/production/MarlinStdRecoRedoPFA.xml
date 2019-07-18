@@ -18,6 +18,7 @@
     * constant.PidWeightFiles : A list (space separated) of XML files containing weights for low momentum pi/mu separation (from TMVA)
     * constant.PFAName : A name for the PFA algorithm output. Default=Pandora
     * constant.HLR_prefix : prefix name for output collection for the High Level Reconstruction, default is PFAName_
+    * constant.MarlinPFAfile : the file ParticleFlow/<MarlinPFAfile>.xml will be used to run the PFA (default=PandoraPFA)
 
   Author : Remi Ete, DESY
   Modifications : G. Grenier, IP2I
@@ -59,6 +60,8 @@
     <constant name="PFAName"  value="Pandora" />
     <!-- Parameter for rerunning High Level Reco -->
     <constant name="HLR_prefix" value="${PFAName}_" />
+    <!-- Marlin PFA file to run -->
+    <constant name="MarlinPFAfile" value="PandoraPFA" />
     
     <!-- Output files constants -->
     <constant name="OutputBaseName" value="StandardReco" />
@@ -127,7 +130,7 @@
   
   
   <!-- Particle Flow reconstruction : PandoraPFA -->
-  <include ref="ParticleFlow/PandoraPFA.xml" />
+  <include ref="ParticleFlow/${MarlinPFAfile}.xml" />
   
   <!-- Post reconstruction related : PID, Vertexing, Particle finding, cluster topology -->
   <include ref="HighLevelReco/HighLevelReco_redoPFA.xml" />
