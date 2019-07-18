@@ -1,0 +1,359 @@
+<!-- ArborPFA settings xml file -->
+<!-- Updated by Bo Li -->
+
+<pandora>
+	<!-- GLOBAL SETTINGS -->
+	<IsMonitoringEnabled>false</IsMonitoringEnabled>
+	<ShouldDisplayAlgorithmInfo>true</ShouldDisplayAlgorithmInfo>
+	<ShouldCollapseMCParticlesToPfoTarget>true</ShouldCollapseMCParticlesToPfoTarget>
+
+	<!-- PLUGIN SETTINGS -->
+	<!--HadronicEnergyCorrectionPlugins> BarrelGapEnergyFunction ThetaEnergyFunction </HadronicEnergyCorrectionPlugins-->
+    <HadronicEnergyCorrectionPlugins> CleanClusters </HadronicEnergyCorrectionPlugins>
+
+  <BarrelGapEnergyFunction>
+	  <EcalZGapPositions>-1410.6 -470.2 470.2 1410.6</EcalZGapPositions>
+	  <HcalZGapPositions>-1423 -485 485 1423</HcalZGapPositions>
+	  <EcalDistanceToGap>10</EcalDistanceToGap>
+	  <HcalDistanceToGap>30</HcalDistanceToGap>
+	  <EcalGapAlpha>0</EcalGapAlpha>
+	  <EcalGapBeta>0</EcalGapBeta>
+	  <HcalGapAlpha>1.5254</HcalGapAlpha>
+	  <HcalGapBeta>0</HcalGapBeta>
+  </BarrelGapEnergyFunction>
+  
+  <ThetaEnergyFunction>
+  	<LowEnergyCut>3.</LowEnergyCut>
+  	<BarrelP00>-2.36284</BarrelP00>
+  	<BarrelP01>1.14627</BarrelP01>
+  	<BarrelP02>-0.00152029</BarrelP02>
+  	<BarrelP10>0.325533</BarrelP10>
+  	<BarrelP11>-0.126941</BarrelP11>
+  	<BarrelP12>0.000462463</BarrelP12>
+  	<EndcapP00>-2.16956</EndcapP00>
+  	<EndcapP01>0.801878</EndcapP01>
+  	<EndcapP02>1.27263e-05</EndcapP02>
+  	<EndcapP10>0.157559</EndcapP10>
+  	<EndcapP11>0.34754</EndcapP11>
+  	<EndcapP12>-0.00122559</EndcapP12>
+  </ThetaEnergyFunction>
+ 
+	<EmShowerPlugin>ArborEmShowerId</EmShowerPlugin> 
+	<PhotonPlugin>ArborPhotonId</PhotonPlugin> 
+	<ElectronPlugin>ArborElectronId</ElectronPlugin>
+	<MuonPlugin>ArborMuonId</MuonPlugin>
+	
+	<ArborEmShowerId>
+	 <MaxForwardPseudoLayer>3</MaxForwardPseudoLayer>
+	 <MinPseudoLayerNHits>4</MinPseudoLayerNHits>
+	 <MinFitHitDistanceFine>50</MinFitHitDistanceFine>
+	 <MinFitHitDistanceCoarse>100</MinFitHitDistanceCoarse>
+	 <MinNInteractingLayers>2</MinNInteractingLayers>
+	 <LowEnergyClusterCut>4.</LowEnergyClusterCut>
+	 <MaxPseudoLayerExtension>30</MaxPseudoLayerExtension>
+	 <MaxAngleWithOrigin>0.3</MaxAngleWithOrigin>
+	 <MaxHadronicEnergyFraction>0.2</MaxHadronicEnergyFraction>
+	 <MinOuterEcalPseudoLayerEnergyCut>25</MinOuterEcalPseudoLayerEnergyCut>
+	 <MaxOuterEcalEnergyFraction>0.1</MaxOuterEcalEnergyFraction>
+	</ArborEmShowerId>
+
+	<PseudoLayerPlugin>
+		<UseCoordinateCorrections> true </UseCoordinateCorrections>
+	</PseudoLayerPlugin>
+	
+	<SdhcalQuadraticEnergyFunction>
+		<EnergyConstantParameters>
+			0.0406952 3.30524e-05 -2.89607e-08
+    		0.0925995 1.12701e-05  5.1673e-09
+    		0.166333  3.08751e-05  2.98793e-08
+		</EnergyConstantParameters>
+		<SdhcalThresholds> 
+			0.0387678 0.0943724 0.371602 
+		</SdhcalThresholds>
+	</SdhcalQuadraticEnergyFunction>
+	
+	<!-- Select tracks and hits to use for clustering -->
+	<algorithm type="CaloHitPreparation"/>
+
+	<algorithm type="EventPreparation">
+		<OutputTrackListName>Tracks</OutputTrackListName>
+		<MergeECalHCalCaloHitLists>true</MergeECalHCalCaloHitLists>
+		<OutputCaloHitListName>CaloHits</OutputCaloHitListName>
+		<OutputMuonCaloHitListName>MuonYokeHits</OutputMuonCaloHitListName>
+		<ReplacementTrackListName>Tracks</ReplacementTrackListName>
+		<ReplacementCaloHitListName>CaloHits</ReplacementCaloHitListName>
+	</algorithm>
+
+   <!-- clustering starts here /-->
+   <!-- photon clustering as basic clustering with photon id -->
+   <algorithm type="PhotonReconstruction">
+    <!-- Clustering setup in calorimeters -->
+    <algorithm type="ArborClustering" description="ClusterFormation">
+	   <ConnectionTools>
+	    <!-- track driven seeding in ECAL + HCAL -->
+        <tool type="TrackDrivenSeeding">
+		  <MaxInitialPseudoLayer> 8 </MaxInitialPseudoLayer> <!-- default: 3 -->
+		  <InitialHitSearchRange> 100. </InitialHitSearchRange>
+		  <HitSearchRangeFine> 80. </HitSearchRangeFine>
+		  <HitSearchRangeCoarse> 100. </HitSearchRangeCoarse>
+		  <HitSearchRangeAtBoundary> 160. </HitSearchRangeAtBoundary>
+          <MaxConnectionPseudoLayer> 6 </MaxConnectionPseudoLayer>
+		  <MaxTransverseDistanceFine> 7.5 </MaxTransverseDistanceFine> <!-- 1.5 * 5 mm -->
+		  <MaxTransverseDistanceCoarse> 15. </MaxTransverseDistanceCoarse> <!-- 1.5 * 10 mm -->
+		  <MaxDistanceToTrackFine> 15. </MaxDistanceToTrackFine>
+		  <MaxDistanceToTrackCoarse> 30. </MaxDistanceToTrackCoarse>
+		  <ShouldUseIsolatedHits> true </ShouldUseIsolatedHits>
+		  <ConnectorCreationStage> 1 </ConnectorCreationStage>
+        </tool>
+        <tool type="ConnectorCleaning">
+		  <OrderParameterAnglePower> 1 </OrderParameterAnglePower>
+		  <OrderParameterDistancePower> 7 </OrderParameterDistancePower>
+		  <BackwardConnectorWeight> 2. </BackwardConnectorWeight>
+		  <ForwardConnectorWeight> 1. </ForwardConnectorWeight>
+		  <BackwardReferenceDirectionDepth> 1 </BackwardReferenceDirectionDepth>
+		  <ForwardReferenceDirectionDepth> 1 </ForwardReferenceDirectionDepth>
+		</tool>
+
+	    <!-- connector seeding in ECAL -->
+        <tool type="ConnectorSeeding">
+		  <CaloHitCollection> 1 </CaloHitCollection>
+		  <HitSearchRange> 30. </HitSearchRange>
+		  <MaxPseudoLayerConnection> 2 </MaxPseudoLayerConnection>
+		  <MaxCollectorLength> 40. </MaxCollectorLength>
+		  <MaxTransverseDistanceFine> 20. </MaxTransverseDistanceFine>
+		  <MaxTransverseDistanceCoarse> 40. </MaxTransverseDistanceCoarse> <!-- 4 * 10 mm -->
+		  <MaxConnectionAngleFine> 0.8 </MaxConnectionAngleFine>
+		  <MaxConnectionAngleCoarse> 1.0 </MaxConnectionAngleCoarse>
+		  <ShouldUseIsolatedHits> true </ShouldUseIsolatedHits>
+          <ShouldDiscriminateConnectedHits> false </ShouldDiscriminateConnectedHits>
+		  <ConnectorCreationStage> 2 </ConnectorCreationStage>
+        </tool>
+        <tool type="ConnectorCleaning">
+		  <OrderParameterAnglePower> 1 </OrderParameterAnglePower>
+		  <OrderParameterDistancePower> 7 </OrderParameterDistancePower>
+		  <BackwardConnectorWeight> 2. </BackwardConnectorWeight>
+		  <ForwardConnectorWeight> 1. </ForwardConnectorWeight>
+		  <BackwardReferenceDirectionDepth> 1 </BackwardReferenceDirectionDepth>
+		  <ForwardReferenceDirectionDepth> 1 </ForwardReferenceDirectionDepth>
+		</tool>
+
+	    <!-- connector seeding in HCAL -->
+        <tool type="ConnectorSeeding">
+		  <CaloHitCollection> 2 </CaloHitCollection>
+		  <HitSearchRange> 60. </HitSearchRange>
+		  <MaxPseudoLayerConnection> 2 </MaxPseudoLayerConnection>
+		  <MaxCollectorLength> 70. </MaxCollectorLength>
+		  <MaxTransverseDistanceFine> 20. </MaxTransverseDistanceFine>
+		  <MaxTransverseDistanceCoarse> 40. </MaxTransverseDistanceCoarse> <!-- 4 * 10 mm -->
+		  <MaxConnectionAngleFine> 0.8 </MaxConnectionAngleFine>
+		  <MaxConnectionAngleCoarse> 1.0 </MaxConnectionAngleCoarse>
+		  <ShouldUseIsolatedHits> true </ShouldUseIsolatedHits>
+          <ShouldDiscriminateConnectedHits> false </ShouldDiscriminateConnectedHits>
+		  <ConnectorCreationStage> 3 </ConnectorCreationStage>
+        </tool>
+        <tool type="ConnectorCleaning">
+		  <OrderParameterAnglePower> 1 </OrderParameterAnglePower>
+		  <OrderParameterDistancePower> 7 </OrderParameterDistancePower>
+		  <BackwardConnectorWeight> 2. </BackwardConnectorWeight>
+		  <ForwardConnectorWeight> 1. </ForwardConnectorWeight>
+		  <BackwardReferenceDirectionDepth> 1 </BackwardReferenceDirectionDepth>
+		  <ForwardReferenceDirectionDepth> 1 </ForwardReferenceDirectionDepth>
+		</tool>
+	  </ConnectionTools>
+    </algorithm>
+
+	<!-- Step x: MUON; check endcap, ring... -->
+    <!-- End of clustering in calorimeters -->
+
+    <PhotonClusterListName>PhotonClusters</PhotonClusterListName>
+    <NonPhotonClusterListName>NonPhotonClusters</NonPhotonClusterListName>
+    <ReplaceCurrentClusterList>false</ReplaceCurrentClusterList>
+  </algorithm>
+
+  <algorithm type="ClusterPreparation">
+    <CandidateListNames>PhotonClusters NonPhotonClusters</CandidateListNames>
+	<MergedCandidateListName>MergedClustersForPFOCreation</MergedCandidateListName>
+  </algorithm>
+
+
+  <algorithm type="NearbyHitRecovery">
+	<NeighborHitsNumber> 20 </NeighborHitsNumber>
+	<MaxHitsDistance> 200. </MaxHitsDistance>
+	<tool type="NearbyHitsConnecting" description="CaloHitMergingTool">
+		<MetricType> 0 </MetricType>   <!-- 3D metric -->
+	    <EpsDBSCAN> 40. </EpsDBSCAN>
+		<MinPointDBSCAN> 4 </MinPointDBSCAN>
+		<ShouldUseIsolatedHits> true </ShouldUseIsolatedHits>
+	</tool>
+  </algorithm>
+
+  <algorithm type="NearbyHitRecovery">
+	<NeighborHitsNumber> 40 </NeighborHitsNumber>
+	<MaxHitsDistance> 600. </MaxHitsDistance>
+	<tool type="NearbyHitsConnecting" description="CaloHitMergingTool">
+		<MetricType> 0 </MetricType>   <!-- 3D metric -->
+	    <EpsDBSCAN> 100. </EpsDBSCAN>
+		<MinPointDBSCAN> 4 </MinPointDBSCAN>
+		<ShouldUseIsolatedHits> true </ShouldUseIsolatedHits>
+	</tool>
+  </algorithm>
+
+  <algorithm type="ClosebySeedMerging">
+	<MergeHCalSeedClusters>false</MergeHCalSeedClusters>
+  </algorithm>
+
+  <algorithm type="MatchTrackWithStartingCluster"/>
+  <algorithm type="ClustersMerging">
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type="ClusterFromTrackMerging"/>
+  <algorithm type="ClustersMerging">
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type="ClusterFromTrackMerging">
+    <MaxStartingClusterDistance> 3000 </MaxStartingClusterDistance>
+	<MaxClusterTrackAngle> 0.3 </MaxClusterTrackAngle>
+  </algorithm>
+  <algorithm type="ClustersMerging">
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type="ClusterFromTrackMerging2"/>
+  <algorithm type="ClustersMerging">
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type="ClusterFromTrackMerging2"/>
+  <algorithm type="ClustersMerging">
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <!-- photon fragment merging -->
+  <algorithm type="ClusterFromTrackMerging3">
+    <MergePhotonClusters> true </MergePhotonClusters>
+	<MergeChargedClusters> false </MergeChargedClusters>
+    <MaxClosestPhotonDistance> 50. </MaxClosestPhotonDistance>
+  </algorithm>
+  <algorithm type="ClustersMerging">
+    <UseEnergyChi> false </UseEnergyChi>
+	<MaxMergingEnergy> 3. </MaxMergingEnergy>
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type = "NearbyFragmentsMerging">
+    <MaxClosestFragmentDistance> 80. </MaxClosestFragmentDistance>
+  </algorithm>
+  <algorithm type="ClustersMerging">
+    <UseEnergyChi> false </UseEnergyChi>
+	<MaxMergingEnergy> 3. </MaxMergingEnergy>
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <!-- testing from here -->
+
+  <!-- charged fragments merging -->
+  <algorithm type="ClusterFromTrackMerging3">
+    <MergePhotonClusters> false </MergePhotonClusters>
+	<MergeChargedClusters> true </MergeChargedClusters>
+	<DebugOutput> false </DebugOutput>
+	<!--OnlyUseConnectedHits> true </OnlyUseConnectedHits-->
+  </algorithm>
+  <algorithm type="ClustersMerging">
+    <UseEnergyChi> true </UseEnergyChi>
+	<MaxChi> 2. </MaxChi>
+	<MaxMergingEnergy> 3. </MaxMergingEnergy>
+	<UseMCTruth> false </UseMCTruth>
+	<MergeIssue> false </MergeIssue>
+	<MergeError> false </MergeError>
+  </algorithm>
+
+  <algorithm type = "ChargedFragmentsMerging">
+    <MaxClusterPosAxisAngle> 0.1 </MaxClusterPosAxisAngle>
+	<MaxClusterAxesDistance> 100. </MaxClusterAxesDistance>
+	<UseMCPForPID> false </UseMCPForPID>
+	<UseMCPToRejectNeutralCluster> false </UseMCPToRejectNeutralCluster>
+	<DebugOutput> false </DebugOutput>
+	<DebugOutput2> false </DebugOutput2>
+  </algorithm>
+  <algorithm type="ClustersMerging">
+    <UseEnergyChi> true </UseEnergyChi>
+	<MaxChi> 3. </MaxChi>
+	<LowEnergyMaxChi> 6. </LowEnergyMaxChi>
+	<MaxMergingEnergy> 10. </MaxMergingEnergy>
+	<UseMCTruth> true </UseMCTruth>
+	<MergeIssue> true </MergeIssue>
+	<MergeError> true </MergeError>
+  </algorithm>
+
+  <algorithm type="VisualMonitoring">
+  	<ShowCurrentConnectors>true</ShowCurrentConnectors>
+  	<ConnectorLevel>Clusters</ConnectorLevel>
+  	<ShowCurrentMCParticles>true</ShowCurrentMCParticles>
+  	<ShowCurrentCaloHits>true</ShowCurrentCaloHits>
+  	<ShowCurrentTracks>true</ShowCurrentTracks>
+  	<ShowCurrentClusters>true</ShowCurrentClusters>
+  	<ShowCurrentPfos>false</ShowCurrentPfos>
+  	<ShowCurrentVertices>false</ShowCurrentVertices>
+  	<HitColors>iterate</HitColors>
+  	<DisplayEvent>true</DisplayEvent>
+  	<ShowDetector>true</ShowDetector>
+  	<DetectorView>""</DetectorView>
+  	<ShowOnlyAvailable>true</ShowOnlyAvailable>
+  	<ShowAssociatedTracks>true</ShowAssociatedTracks>
+  </algorithm>
+
+  <algorithm type = "TrackPreparation">
+      <CandidateListNames>Input</CandidateListNames>
+      <MergedCandidateListName>PfoCandidates</MergedCandidateListName>
+      <PfoTrackListName>PfoCreation</PfoTrackListName>
+      <trackClusterAssociationAlgorithms>
+          <algorithm type = "TrackClusterAssociation"/>
+          <algorithm type = "LoopingTrackAssociation"/>
+          <algorithm type = "TrackRecovery"/>
+          <algorithm type = "TrackRecoveryHelix"/>
+          <algorithm type = "TrackRecoveryInteractions"/>
+      </trackClusterAssociationAlgorithms>
+  </algorithm>
+
+  <algorithm type = "MainFragmentRemoval"/>
+
+  <algorithm type="ForceSplitTrackAssociations"/>
+  <algorithm type="PfoCreation">                                                                                       
+    <OutputPfoListName>ArborPfos</OutputPfoListName>                                                                 
+  </algorithm>
+
+  <algorithm type="VisualMonitoring">
+  	<ShowCurrentConnectors>true</ShowCurrentConnectors>
+  	<ConnectorLevel>Clusters</ConnectorLevel>
+  	<ShowCurrentMCParticles>true</ShowCurrentMCParticles>
+  	<ShowCurrentCaloHits>true</ShowCurrentCaloHits>
+  	<ShowCurrentTracks>true</ShowCurrentTracks>
+  	<ShowCurrentClusters>true</ShowCurrentClusters>
+  	<ShowCurrentPfos>true</ShowCurrentPfos>
+  	<ShowCurrentVertices>false</ShowCurrentVertices>
+  	<!--ClusterListNames>PhotonClusters NonPhotonClusters</ClusterListNames-->
+  	<!--HitColors>iterate</HitColors/-->
+  	<DisplayEvent>true</DisplayEvent>
+  	<ShowDetector>true</ShowDetector>
+  	<DetectorView>""</DetectorView>
+  	<ShowOnlyAvailable>true</ShowOnlyAvailable>
+  	<ShowAssociatedTracks>true</ShowAssociatedTracks>
+  </algorithm>
+
+</pandora>
