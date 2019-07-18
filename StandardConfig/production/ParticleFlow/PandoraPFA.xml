@@ -21,10 +21,10 @@
     <parameter name="ProngVertexCollections" type="StringVec">ProngVertices</parameter>
     <parameter name="SplitVertexCollections" type="StringVec">SplitVertices</parameter>
     <parameter name="V0VertexCollections" type="StringVec">V0Vertices</parameter>
-    <parameter name="StartVertexCollectionName" type="string">PandoraPFANewStartVertices</parameter>
+    <parameter name="StartVertexCollectionName" type="string">${PFAName}PFANewStartVertices</parameter>
     <parameter name="StartVertexAlgorithmName" type="string">PandoraPFANew</parameter>
-    <parameter name="ClusterCollectionName" type="String">PandoraClusters</parameter>
-    <parameter name="PFOCollectionName" type="String">PandoraPFOs</parameter>
+    <parameter name="ClusterCollectionName" type="String">${PFAName}Clusters</parameter>
+    <parameter name="PFOCollectionName" type="String">${PFAName}PFOs</parameter>
     <!-- Calibration constants -->
     <parameter name="ECalToMipCalibration">${PandoraEcalToMip}</parameter>
     <parameter name="HCalToMipCalibration">${PandoraHcalToMip}</parameter>

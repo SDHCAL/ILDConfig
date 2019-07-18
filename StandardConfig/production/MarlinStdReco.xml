@@ -17,8 +17,10 @@
     * constant.PandoraSettingsFile : The pandora settings file to use
     * constant.PidPDFFile : A single root file name for the PID likelihood processor
     * constant.PidWeightFiles : A list (space separated) of XML files containing weights for low momentum pi/mu separation (from TMVA)
+    * constant.PFAName : A name for the PFA algorithm output. Default=Pandora
 
   Author : Remi Ete, DESY
+  Modifications : G. Grenier, IP2I
 -->
 
 
@@ -52,6 +54,9 @@
     
     <!-- Energy dependant parameters -->
     <include ref="${EnergyParametersFile}" />
+
+    <!-- PFA collection base name" -->
+    <constant name="PFAName"  value="Pandora" />
     
     <!-- Output files constants -->
     <constant name="OutputBaseName" value="StandardReco" />
@@ -232,7 +237,7 @@
       LCFloatVec      
     </parameter>
     <parameter name="DropCollectionNames" type="StringVec">
-      PandoraPFANewStartVertices
+      ${PFAName}PFANewStartVertices
     </parameter>
     <parameter name="FullSubsetCollections" type="StringVec" value="MCParticlesSkimmed"/>
     <parameter name="KeepCollectionNames" type="StringVec"> 
@@ -253,7 +258,7 @@
   <processor name="MyPfoAnalysis" type="PfoAnalysis">
     <!--PfoAnalysis analyses output of PandoraPFANew-->
     <!--Names of input pfo collection-->
-    <parameter name="PfoCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <parameter name="PfoCollection" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
     <!--Names of mc particle collection-->
     <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle">MCParticle </parameter>
     <!--Flag to look for quarks with mother Z-->
