@@ -5,15 +5,15 @@
   <!--Set the convariance matrix in (P,E) for all charged pfos in PandoraPFOs Collection-->
   <processor name="MyAdd4MomCovMatrixCharged" type="Add4MomCovMatrixCharged">
     <!--Name of the PandoraPFOs collection-->
-    <parameter name="InputPandoraPFOsCollection" type="String">PandoraPFOs</parameter>
+    <parameter name="InputPandoraPFOsCollection" type="String">${PFAName}PFOs</parameter>
     <!--Verbosity lower than MESSAGE4 will print out cov. matrix for each pfo-->
     <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT"> MESSAGE4 </parameter>
   </processor>
 
   <!--########## AddClusterProperties ###################################### -->
   <processor name="MyAddClusterProperties" type="AddClusterProperties">
-    <parameter name="PFOCollectionName" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
-    <parameter name="ClusterCollection" type="string" lcioInType="Cluster">PandoraClusters </parameter>
+    <parameter name="PFOCollectionName" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
+    <parameter name="ClusterCollection" type="string" lcioInType="Cluster">${PFAName}Clusters </parameter>
     <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
     <parameter name="Verbosity" type="string">MESSAGE </parameter>
   </processor>
@@ -24,9 +24,9 @@
     <!--Debugging?-->
     <parameter name="Debug" type="int">0 </parameter>
     <!--Name of the PFO collection-->
-    <parameter name="PFOCollection" type="string"> PandoraPFOs </parameter>
+    <parameter name="PFOCollection" type="string"> ${PFAName}PFOs </parameter>
     <!--Name of the Cluster collection-->
-    <parameter name="ClusterCollectionName" type="string"> PandoraClusters </parameter>
+    <parameter name="ClusterCollectionName" type="string"> ${PFAName}Clusters </parameter>
     <!-- Radiation Length of Ecal-->
     <parameter name="RadiationLength_Ecal" type="float">3.50 </parameter>
     <!-- Radiation Length of Hcal-->
@@ -39,7 +39,7 @@
 
 
   <processor name="MyPi0Finder" type="GammaGammaCandidateFinder">
-    <parameter name="InputParticleCollectionName" value="PandoraPFOs" />
+    <parameter name="InputParticleCollectionName" value="${PFAName}PFOs" />
     <parameter name="GammaGammaResonanceName" value="Pi0" />
     <parameter name="GammaGammaResonanceMass" value="0.1349766" />
     <parameter name="MaxDeltaMgg" value="0.04" />
@@ -50,7 +50,7 @@
 
 
   <processor name="MyEtaFinder" type="GammaGammaCandidateFinder">
-    <parameter name="InputParticleCollectionName" value="PandoraPFOs" />
+    <parameter name="InputParticleCollectionName" value="${PFAName}PFOs" />
     <parameter name="GammaGammaResonanceName" value="Eta" />
     <parameter name="GammaGammaResonanceMass" value="0.547862" />
     <parameter name="MaxDeltaMgg" value="0.14" />
@@ -61,7 +61,7 @@
 
 
   <processor name="MyEtaPrimeFinder" type="GammaGammaCandidateFinder">
-    <parameter name="InputParticleCollectionName" value="PandoraPFOs" />
+    <parameter name="InputParticleCollectionName" value="${PFAName}PFOs" />
     <parameter name="GammaGammaResonanceName" value="EtaPrime" />
     <parameter name="GammaGammaResonanceMass" value="0.95778" />
     <parameter name="MaxDeltaMgg" value="0.19" />
@@ -81,7 +81,7 @@
 
 
   <processor name="MyDistilledPFOCreator" type="DistilledPFOCreator">
-    <parameter name="InputParticleCollectionName1" value="PandoraPFOs" />
+    <parameter name="InputParticleCollectionName1" value="${PFAName}PFOs" />
     <parameter name="InputParticleCollectionName2" value="GammaGammaParticles" />
     <parameter name="Printing" value="0" />
     <parameter name="OutputParticleCollectionName" value="DistilledPFOs" />
@@ -135,7 +135,7 @@
     </parameter>
 
     <!--Name of the PFO collection-->
-    <parameter name="RecoParticleCollection" type="string">PandoraPFOs</parameter>
+    <parameter name="RecoParticleCollection" type="string">${PFAName}PFOs</parameter>
   </processor>
 
 
@@ -150,9 +150,9 @@
           specified -->
     <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle"> MCParticle </parameter>
     <!--Name of the ReconstructedParticles input collection-->
-    <parameter name="RecoParticleCollection" type="string" lcioInType="ReconstructedParticle"> PandoraPFOs </parameter>
+    <parameter name="RecoParticleCollection" type="string" lcioInType="ReconstructedParticle"> ${PFAName}PFOs </parameter>
     <!--Name of the Cluster collection -->
-    <parameter name="ClusterCollection" type="string" lcioInType="Cluster"> PandoraClusters </parameter>
+    <parameter name="ClusterCollection" type="string" lcioInType="Cluster"> ${PFAName}Clusters </parameter>
     <!--Name of the Tracks input collection-->
     <parameter name="TrackCollection" type="string" lcioInType="Track">MarlinTrkTracks </parameter>
     
@@ -248,7 +248,7 @@
     <parameter name="BeamSizeY" type="float" value="${BeamSizeY}"/>
     <parameter name="BeamSizeZ" type="float" value="${BeamSizeZ}"/>
     <!-- specify input collection names -->
-    <parameter name="PFOCollection" type="string" value="PandoraPFOs" />
+    <parameter name="PFOCollection" type="string" value="${PFAName}PFOs" />
     <parameter name="PrimaryVertexCollectionName" type="string" value="PrimaryVertex" />
     <parameter name="BuildUpVertexCollectionName" type="string" value="BuildUpVertex" />
     <parameter name="BuildUpVertex.V0VertexCollectionName" type="string" value="BuildUpVertex_V0" />
@@ -289,7 +289,7 @@
     <!--Use only calorimeter hits up to MaxLayerNumber in TOF estimators-->
     <parameter name="MaxLayerNumber" type="int">10 </parameter>
     <!--Name of the ReconstructedParticle collection-->
-    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
     <!--Assumed time resolution per hit in ps-->
     <parameter name="TimeResolution" type="float">0 </parameter>
   </processor>
@@ -298,7 +298,7 @@
     <!--Use only calorimeter hits up to MaxLayerNumber in TOF estimators-->
     <parameter name="MaxLayerNumber" type="int">10 </parameter>
     <!--Name of the ReconstructedParticle collection-->
-    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
     <!--Assumed time resolution per hit in ps-->
     <parameter name="TimeResolution" type="float">10. </parameter>
   </processor>
@@ -307,7 +307,7 @@
     <!--Use only calorimeter hits up to MaxLayerNumber in TOF estimators-->
     <parameter name="MaxLayerNumber" type="int">10 </parameter>
     <!--Name of the ReconstructedParticle collection-->
-    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
     <!--Assumed time resolution per hit in ps-->
     <parameter name="TimeResolution" type="float">50 </parameter>
   </processor>
