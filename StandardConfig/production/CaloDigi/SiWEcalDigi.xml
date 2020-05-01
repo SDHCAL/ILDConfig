@@ -45,6 +45,7 @@
     <parameter name="CellIDLayerString"> layer </parameter>
     <parameter name="CellIDModuleString"> module </parameter>
     <parameter name="CellIDStaveString"> stave </parameter>
+    <parameter name="applyInterModuleCorrection"> false </parameter>
     <parameter name="expectedInterModuleDistance"> 7.0 </parameter>
   </processor>
   <!--### the Ecal endcaps ###-->
@@ -75,6 +76,7 @@
     <parameter name="CellIDLayerString"> layer </parameter>
     <parameter name="CellIDModuleString"> module </parameter>
     <parameter name="CellIDStaveString"> stave </parameter>
+    <parameter name="applyInterModuleCorrection"> false </parameter>
     <parameter name="expectedInterModuleDistance"> 7.0 </parameter>
   </processor>
   <!--### the Ecal endcap rings ###-->

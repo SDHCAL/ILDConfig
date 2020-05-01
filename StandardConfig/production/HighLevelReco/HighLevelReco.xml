@@ -37,6 +37,69 @@
     <parameter name="MoliereRadius_Hcal" type="float">17.19 </parameter>
   </processor>
 
+  <processor name="MyphotonCorrectionProcessor" type="photonCorrectionProcessor">
+    <!--photonCorrectionProcessor applies an energy correction to photon-like PFOs-->
+    <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+    <!--parameter name="Verbosity" type="string">DEBUG </parameter-->
+    <!--name of input PFO collection-->
+    <parameter name="inputCollection" type="string">PandoraPFOs </parameter>
+    <!--apply the corrected energies to the PFOs-->
+    <parameter name="modifyPFOenergies" type="bool">true </parameter>
+    <!--nominal photon energy (for validation plots)-->
+    <parameter name="nominalEnergy" type="float">200 </parameter>
+    <!--produce validation plots-->
+    <parameter name="validationPlots" type="bool">false </parameter>
+    <!--extra correction factor for endcap-->
+    <parameter name="costhCorr_endcap_scale" type="float">1.002 </parameter>
+    <!--barrel cos(theta) correction: gaus1: mean-->
+    <parameter name="costhCorr_gaus1_mean" type="float">0.235 </parameter>
+    <!--barrel cos(theta) correction: gaus1: norm (constant)-->
+    <parameter name="costhCorr_gaus1_norm_const" type="float">-0.09 </parameter>
+    <!--barrel cos(theta) correction: gaus1: norm (log(e) coeff)-->
+    <parameter name="costhCorr_gaus1_norm_logen" type="float">0 </parameter>
+    <!--barrel cos(theta) correction: gaus1: sigma-->
+    <parameter name="costhCorr_gaus1_sigm" type="float">0.007256 </parameter>
+    <!--barrel cos(theta) correction: gaus2: mean-->
+    <parameter name="costhCorr_gaus2_mean" type="float">0.588 </parameter>
+    <!--barrel cos(theta) correction: gaus2: norm (constant)-->
+    <parameter name="costhCorr_gaus2_norm_const" type="float">-0.0369648 </parameter>
+    <!--barrel cos(theta) correction: gaus2: norm (log(e) coeff)-->
+    <parameter name="costhCorr_gaus2_norm_logen" type="float">0 </parameter>
+    <!--barrel cos(theta) correction: gaus2: sigm-->
+    <parameter name="costhCorr_gaus2_sigm" type="float">0.0121604 </parameter>
+    <!--barrel cos(theta) correction: gaus3: mean-->
+    <parameter name="costhCorr_gaus3_mean" type="float">0.774 </parameter>
+    <!--barrel cos(theta) correction: gaus3: norm (constant)-->
+    <parameter name="costhCorr_gaus3_norm" type="float">-0.0422968 </parameter>
+    <!--barrel cos(theta) correction: gaus3: sigm-->
+    <parameter name="costhCorr_gaus3_sigm" type="float">0.009 </parameter>
+    <!--across endcap module correction: gaus1 mean-->
+    <parameter name="endcap_gaus1_mean" type="float">855 </parameter>
+    <!--across endcap module correction: gaus1 norm-->
+    <parameter name="endcap_gaus1_norm" type="float">-0.025 </parameter>
+    <!--across endcap module correction: gaus1 sigma-->
+    <parameter name="endcap_gaus1_sigm" type="float">23 </parameter>
+    <!--across endcap module correction: gaus2 mean-->
+    <parameter name="endcap_gaus2_mean" type="float">1489 </parameter>
+    <!--across endcap module correction: gaus2 norm-->
+    <parameter name="endcap_gaus2_norm" type="float">-0.07 </parameter>
+    <!--across endcap module correction: gaus2 sigma-->
+    <parameter name="endcap_gaus2_sigm" type="float">18 </parameter>
+    <!--overall energy correction: constant term-->
+    <parameter name="energyLin_const" type="float">0.987 </parameter>
+    <!--overall energy correction: log(e) coefficient-->
+    <parameter name="energyLin_logen" type="float">0.01426 </parameter>
+    <!--barrel phi correction: gaussian depth-->
+    <parameter name="phiBarrelCorr_depth" type="float">-0.0933687 </parameter>
+    <!--barrel phi correction: central position (constant)-->
+    <parameter name="phiBarrelCorr_pos_const" type="float">0.412249 </parameter>
+    <!--barrel phi correction: central position (log(e) coeff)-->
+    <parameter name="phiBarrelCorr_pos_logen" type="float">0.0142289 </parameter>
+    <!--barrel phi correction: gaussian width (left side)-->
+    <parameter name="phiBarrelCorr_width1" type="float">0.01345 </parameter>
+    <!--barrel phi correction: gaussian width (right side)-->
+    <parameter name="phiBarrelCorr_width2" type="float">0.0408156 </parameter>
+  </processor>
 
   <processor name="MyPi0Finder" type="GammaGammaCandidateFinder">
     <parameter name="InputParticleCollectionName" value="${PFAName}PFOs" />
@@ -103,19 +166,19 @@
     
     <!--dE/dx parameters for each particle-->
     <parameter name="dEdxParameter_electron" type="FloatVec">
-      -2.40638e-03 7.10337e-01 2.87718e-01 -1.71591e+00 0.0
+      -1.05423291e-02 -1.31395131e+01 -5.32208575e+00 -1.76464796e+00 -8.30708630e-07
     </parameter>
     <parameter name="dEdxParameter_muon" type="FloatVec">
-      8.11408e-02 9.92207e-01 7.58509e+05 -1.70167e-01 4.63670e-04
+      7.01870474e-02 1.68983376e+04 1.07831642e+10 4.44841020e-01 3.23462127e-04
     </parameter>
     <parameter name="dEdxParameter_pion" type="FloatVec">
-      8.10756e-02 -1.45051e+06 -3.09843e+04 2.84056e-01 3.38131e-04
+      7.27657527e-02 -4.19124055e+07 -9.62074286e+05 4.52784712e-01 3.71502054e-04
     </parameter>
     <parameter name="dEdxParameter_kaon" type="FloatVec">
-      7.96117e-02 4.13335e+03 1.13577e+06 1.80555e-01 -3.15083e-04
+      7.87945081e-02 6.48362810e+03 1.49405917e+06 2.65291325e-01 3.96700223e-04
     </parameter>
     <parameter name="dEdxParameter_proton" type="FloatVec">
-      7.78772e-02 4.49300e+04 9.13778e+04 1.50088e-01 -6.64184e-04
+      7.94922564e-02 3.85992430e+04 7.92966101e+04 2.32913411e-01 3.01126698e-04
     </parameter>
 
     <!--dE/dx normalization-->
@@ -310,6 +373,15 @@
     <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">${PFAName}PFOs </parameter>
     <!--Assumed time resolution per hit in ps-->
     <parameter name="TimeResolution" type="float">50 </parameter>
+  </processor>
+  <processor name="TOFEstimators100ps" type="TOFEstimators">
+    <!--TOFEstimators compute some estimators for the time of flight from calorimeter hits-->
+    <!--Use only calorimeter hits up to MaxLayerNumber in TOF estimators-->
+    <parameter name="MaxLayerNumber" type="int">10 </parameter>
+    <!--Name of the ReconstructedParticle collection-->
+    <parameter name="ReconstructedParticleCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <!--Assumed time resolution per hit in ps-->
+    <parameter name="TimeResolution" type="float">100 </parameter>
   </processor>
 
 </group>
