@@ -7,9 +7,9 @@
 <constant name="HcalBarrelMip">0.0004925</constant>
 <constant name="HcalEndcapMip">0.0004725</constant>
 <constant name="HcalRingMip">0.0004875</constant>
-<constant name="EcalBarrelEnergyFactors">0.00638915356629 0.0129779714224</constant>
-<constant name="EcalEndcapEnergyFactors">0.00668706922431 0.013583112754</constant>
-<constant name="EcalRingEnergyFactors">0.00668706922431 0.013583112754</constant>
+<constant name="EcalBarrelEnergyFactors">0.0063520964756 0.012902699188</constant>
+<constant name="EcalEndcapEnergyFactors">0.0067218419842 0.013653744940</constant>
+<constant name="EcalRingEnergyFactors">0.0066536339 0.0135151972</constant>
 <constant name="HcalBarrelEnergyFactors">0.0287783798145</constant>
 <constant name="HcalEndcapEnergyFactors">0.0285819096797</constant>
 <constant name="HcalRingEnergyFactors">0.0349940637704</constant>
@@ -23,6 +23,7 @@
 <constant name="PandoraEcalToHadEndcapScale">1.17344504717</constant>
 <constant name="PandoraHcalToHadScale">1.02821419758</constant>
 <constant name="PandoraSoftwareCompensationWeights">1.59121 -0.0281982 0.000250616 -0.0424222 0.000335128 -2.06112e-05 0.148549 0.199618 -0.0697277</constant>
+<constant name="ApplyPhotonPFOCorrections" value="true" />
 
 <!-- Ecal technology : SiWEcal or ScEcal -->
 <constant name="EcalTechnology" value="SiWEcal" />
@@ -41,7 +42,7 @@
 <constant name="dEdXErrorFactor">7.55</constant>
 
 <!-- dEdX smearing factor depends on large/small detector flavor -->
-<constant name="dEdXSmearingFactor">0.035</constant>
+<constant name="dEdXSmearingFactor">0.029</constant>
 
 <!-- Particle identification PDF root file for l5(l4) detector -->
 <constant name="PidPDFFile" value="HighLevelReco/PIDFiles/LikelihoodPID_Standard_l5_v01.root" />

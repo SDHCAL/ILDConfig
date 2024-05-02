@@ -18,6 +18,7 @@
 <constant name="PandoraEcalToHadEndcapScale">1.31</constant>
 <constant name="PandoraHcalToHadScale">0.98</constant>
 <constant name="PandoraSoftwareCompensationWeights">1.45525 -0.0243366 0.000133654 -0.0529633 0.00148587 -2.11343e-05 0.136194 0.151678 -0.0514051</constant>
+<constant name="ApplyPhotonPFOCorrections" value="false" />
 
 <!-- Ecal technology : SiWEcal or ScEcal -->
 <constant name="EcalTechnology" value="ScEcal" />
@@ -36,7 +37,8 @@
 <constant name="dEdXErrorFactor">8.53</constant>
 
 <!-- dEdX smearing factor depends on large/small detector flavor -->
-<constant name="dEdXSmearingFactor">0.044</constant>
+<!-- ATN: This value has been rescaled from the large model value -->
+<constant name="dEdXSmearingFactor">0.036</constant>
 
 <!-- Particle identification PDF root file for s5(s4) detector -->
 <constant name="PidPDFFile" value="HighLevelReco/PIDFiles/LikelihoodPID_Standard_s5_v01.root" />
