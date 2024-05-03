@@ -48,6 +48,8 @@
     
     <!--Flag to run differently the PFA, use value Perfect to run MCtruePFA-->
     <constant name="PFAtype" value="Standard" />
+    <!--Flag to change the collection name of PFO objects-->
+    <constant name="PFAprefix" value="Pandora" />
     
     <!-- ***** Input files constants ***** -->        
     <!-- Geometry model dependant calibration constants from external file -->
@@ -236,7 +238,7 @@
       LCFloatVec      
     </parameter>
     <parameter name="DropCollectionNames" type="StringVec">
-      PandoraPFANewStartVertices
+      ${PFAprefix}PFANewStartVertices
     </parameter>
     <parameter name="FullSubsetCollections" type="StringVec" value="MCParticlesSkimmed"/>
     <parameter name="KeepCollectionNames" type="StringVec"> 
@@ -258,7 +260,7 @@
   <processor name="MyPfoAnalysis" type="PfoAnalysis">
     <!--PfoAnalysis analyses output of PandoraPFANew-->
     <!--Names of input pfo collection-->
-    <parameter name="PfoCollection" type="string" lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+    <parameter name="PfoCollection" type="string" lcioInType="ReconstructedParticle">${PFAprefix}PFOs </parameter>
     <!--Names of mc particle collection-->
     <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle">MCParticle </parameter>
     <!--Flag to look for quarks with mother Z-->
