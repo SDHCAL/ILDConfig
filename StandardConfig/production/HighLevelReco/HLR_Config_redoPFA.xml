@@ -1,0 +1,20 @@
+<!-- High Level Reco collecion names -->
+<constant name="GammaGammaCandidatePi0s" value="GammaGammaCandidatePi0s_redoPFA_${PFAprefix}" /> 
+<constant name="GammaGammaCandidateEtas" value="GammaGammaCandidateEtas_redoPFA_${PFAprefix}" /> 
+<constant name="GammaGammaCandidateEtaPrimes" value="GammaGammaCandidateEtaPrimes_redoPFA_${PFAprefix}" /> 
+<constant name="GammaGammaParticles" value="GammaGammaParticles_redoPFA_${PFAprefix}" /> 
+<constant name="DistilledPFOs" value="DistilledPFOs_redoPFA_${PFAprefix}" /> 
+
+<constant name="MCParticlesSkimmed" value="MCParticlesSkimmed_redoPFA_${PFAprefix}" /> 
+<constant name="MCTruthMarlinTrkTracksLink" value="MCTruthMarlinTrkTracksLink_redoPFA_${PFAprefix}" />
+<constant name="MarlinTrkTracksMCTruthLink" value="MarlinTrkTracksMCTruthLink_redoPFA_${PFAprefix}" /> 
+<constant name="MCTruthClusterLink" value="MCTruthClusterLink_redoPFA_${PFAprefix}" /> 
+<constant name="ClusterMCTruthLink" value="ClusterMCTruthLink_redoPFA_${PFAprefix}" /> 
+<constant name="RecoMCTruthLink" value="RecoMCTruthLink_redoPFA_${PFAprefix}" /> 
+<constant name="MCTruthRecoLink" value="MCTruthRecoLink_redoPFA_${PFAprefix}" /> 
+
+<constant name="PrimaryVertex" value="PrimaryVertex_redoPFA_${PFAprefix}" /> 
+<constant name="BuildUpVertex" value="BuildUpVertex_redoPFA_${PFAprefix}" /> 
+<constant name="BuildUpVertex_V0" value="BuildUpVertex_V0_redoPFA_${PFAprefix}" /> 
+
+

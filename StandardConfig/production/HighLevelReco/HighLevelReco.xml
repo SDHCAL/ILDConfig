@@ -68,7 +68,7 @@
     <parameter name="MaxDeltaMgg" value="0.04" />
     <parameter name="GammaMomentumCut" value="0.5" />
     <parameter name="Printing" value="0" />
-    <parameter name="OutputParticleCollectionName" value="GammaGammaCandidatePi0s" />
+    <parameter name="OutputParticleCollectionName" value="${GammaGammaCandidatePi0s}" />
   </processor>
 
 
@@ -79,7 +79,7 @@
     <parameter name="MaxDeltaMgg" value="0.14" />
     <parameter name="GammaMomentumCut" value="1.0" />
     <parameter name="Printing" value="0" />
-    <parameter name="OutputParticleCollectionName" value="GammaGammaCandidateEtas" />
+    <parameter name="OutputParticleCollectionName" value="${GammaGammaCandidateEtas}" />
   </processor>
 
 
@@ -90,24 +90,29 @@
     <parameter name="MaxDeltaMgg" value="0.19" />
     <parameter name="GammaMomentumCut" value="2.0" />
     <parameter name="Printing" value="0" />
-    <parameter name="OutputParticleCollectionName" value="GammaGammaCandidateEtaPrimes" />
+    <parameter name="OutputParticleCollectionName" value="${GammaGammaCandidateEtaPrimes}" />
   </processor>
 
 
   <processor name="MyGammaGammaSolutionFinder" type="GammaGammaSolutionFinder">
-    <parameter name="InputParticleCollectionName1" value="GammaGammaCandidatePi0s" />
-    <parameter name="InputParticleCollectionName2" value="GammaGammaCandidateEtas" />
-    <parameter name="InputParticleCollectionName3" value="GammaGammaCandidateEtaPrimes" />
+    <!-- parameter name="InputParticleCollectionName1" value="${GammaGammaCandidatePi0s}" /-->
+    <!--parameter name="InputParticleCollectionName2" value="${GammaGammaCandidateEtas}" /-->
+    <!--parameter name="InputParticleCollectionName3" value="${GammaGammaCandidateEtaPrimes}" /-->
+    <parameter name="GammaGammaCandidateCollections">
+        ${GammaGammaCandidatePi0s} 
+        ${GammaGammaCandidateEtas} 
+        ${GammaGammaCandidateEtaPrimes}
+    </parameter>
     <parameter name="Printing" value="0" />
-    <parameter name="OutputParticleCollectionName" value="GammaGammaParticles" />
+    <parameter name="OutputParticleCollectionName" value="${GammaGammaParticles}" />
   </processor>
 
 
   <processor name="MyDistilledPFOCreator" type="DistilledPFOCreator">
     <parameter name="InputParticleCollectionName1" value="${PFAprefix}PFOs" />
-    <parameter name="InputParticleCollectionName2" value="GammaGammaParticles" />
+    <parameter name="InputParticleCollectionName2" value="${GammaGammaParticles}" />
     <parameter name="Printing" value="0" />
-    <parameter name="OutputParticleCollectionName" value="DistilledPFOs" />
+    <parameter name="OutputParticleCollectionName" value="${DistilledPFOs}" />
   </processor>
 
 
@@ -229,21 +234,21 @@
     
     <!--Names of the output collections -->
     <!--Name of the skimmed MCParticle  output collection-->
-    <parameter name="MCParticlesSkimmedName" type="string" lcioOutType="MCParticle"> MCParticlesSkimmed </parameter>
+    <parameter name="MCParticlesSkimmedName" type="string" lcioOutType="MCParticle"> ${MCParticlesSkimmed} </parameter>
     
     <!-- links between tracks or clusters and mcparticles. The two sets differ
          in what the weight means. These four will only be output if the
          name is given here in the steering -->
-    <parameter name="MCTruthTrackLinkName" type="string" lcioOutType="LCRelation"> MCTruthMarlinTrkTracksLink </parameter>  
-    <parameter name="TrackMCTruthLinkName" type="string" lcioOutType="LCRelation"> MarlinTrkTracksMCTruthLink </parameter>
-    <parameter name="MCTruthClusterLinkName" type="string" lcioOutType="LCRelation"> MCTruthClusterLink </parameter>
-    <parameter name="ClusterMCTruthLinkName" type="string" lcioOutType="LCRelation"> ClusterMCTruthLink </parameter>
+    <parameter name="MCTruthTrackLinkName" type="string" lcioOutType="LCRelation"> ${MCTruthMarlinTrkTracksLink} </parameter>  
+    <parameter name="TrackMCTruthLinkName" type="string" lcioOutType="LCRelation"> ${MarlinTrkTracksMCTruthLink} </parameter>
+    <parameter name="MCTruthClusterLinkName" type="string" lcioOutType="LCRelation"> ${MCTruthClusterLink} </parameter>
+    <parameter name="ClusterMCTruthLinkName" type="string" lcioOutType="LCRelation"> ${ClusterMCTruthLink} </parameter>
 
 
     <!-- Links PFO <-> MCParticles. Only RecoMCTruthLink is output by default,
          to also get the reverse link, MCTruthRecoLinkName must be given here -->
-    <parameter name="RecoMCTruthLinkName" type="string" lcioOutType="LCRelation"> RecoMCTruthLink </parameter>
-    <parameter name="MCTruthRecoLinkName" type="string" lcioOutType="LCRelation"> MCTruthRecoLink </parameter>
+    <parameter name="RecoMCTruthLinkName" type="string" lcioOutType="LCRelation"> ${RecoMCTruthLink} </parameter>
+    <parameter name="MCTruthRecoLinkName" type="string" lcioOutType="LCRelation"> ${MCTruthRecoLink} </parameter>
     <!-- set to true to get the weights in RecoMCTruthLink to include both weights to
          tracks and clusters. False implies that only the true particle that
          gives most contributions to the track of the PFO (charged PFOs), or
@@ -272,9 +277,9 @@
     <parameter name="BeamSizeZ" type="float" value="${BeamSizeZ}"/>
     <!-- specify input collection names -->
     <parameter name="PFOCollection" type="string" value="${PFAprefix}PFOs" />
-    <parameter name="PrimaryVertexCollectionName" type="string" value="PrimaryVertex" />
-    <parameter name="BuildUpVertexCollectionName" type="string" value="BuildUpVertex" />
-    <parameter name="BuildUpVertex.V0VertexCollectionName" type="string" value="BuildUpVertex_V0" />
+    <parameter name="PrimaryVertexCollectionName" type="string" value="${PrimaryVertex}" />
+    <parameter name="BuildUpVertexCollectionName" type="string" value="${BuildUpVertex}" />
+    <parameter name="BuildUpVertex.V0VertexCollectionName" type="string" value="${BuildUpVertex_V0}" />
     <!-- parameters for primary vertex finder -->
     <parameter name="PrimaryVertexFinder.TrackMaxD0" type="double" value="20." />
     <parameter name="PrimaryVertexFinder.TrackMaxZ0" type="double" value="20." />

@@ -35,8 +35,6 @@
     <constant name="CalibrationFile" value="Calibration/Calibration_${DetectorModel}.xml" />
   
     <!-- Whether to run the overlay background -->
-    <!-- WARNING : By setting this value to true (or True), you must ensure that the overlay files are set in the processor parameters -->
-    <constant name="RunOverlay" value="false" />
     <!-- The center of mass energy (unit GeV). Mainly used for background overlay -->
     <constant name="CMSEnergy" value="Unknown" />
     <!-- The energy dependant parameters file to include -->
@@ -50,7 +48,8 @@
     <constant name="PFAtype" value="Standard" />
     <!--Flag to change the collection name of PFO objects-->
     <constant name="PFAprefix" value="Pandora" />
-    <include ref="HighLevelReco/HLR_Config_StdReco.xml" />
+    <!--set all High Level Reco collection names to avoid duplicates -->
+    <include ref="HighLevelReco/HLR_Config_redoPFA.xml" />
     
     <!-- ***** Input files constants ***** -->        
     <!-- Geometry model dependant calibration constants from external file -->
@@ -75,31 +74,9 @@
     <processor name="InitDD4hep" />
     <processor name="MyStatusmonitor" />
 
-    <!-- Overlay background, if any (see constant RunOverlay) -->
-    <if condition="${RunOverlay}">
-      <group name="BgOverlay" />
-    </if>
-    
-    <!-- Tracking digitizers -->
-    <group name="TrackingDigi" />
-    <!-- Tracking reconstruction -->
-    <group name="TrackingReco" />
-    <!-- Ecal digitizers -->
-    <group name="EcalDigi" />
-    <!-- Hcal digitizers -->
-    <group name="HcalDigi" />
-    <!-- Fcal digitizers -->
-    <group name="FcalDigi" />
-    <!-- Muon digitizer(s) -->
-    <group name="MuonDigi" />
     <!-- Particle flow reconstruction -->
     <group name="ParticleFlow" />
     
-    <!--BeamCal reconstruction-->
-    <if condition="${RunBeamCalReco}">
-      <group name="BeamCalReco" />
-    </if>
-
     <!-- High level reconstruction -->
     <group name="HighLevelReco" />
     
@@ -143,51 +120,6 @@
     <!-- <parameter name="Verbosity" type="string">MESSAGE </parameter> -->
   </processor>
 
-
-  <!-- Overlay background -->
-  <group name="BgOverlay">
-    <!--Overlay each event with this number of background events. (default 0)-->
-    <parameter name="NumberOverlayEvents" type="int"> 0 </parameter>
-    
-    <processor name="BgOverlayWW" type="Overlay">
-      <!--Opens a second (chain of) lcio file(s) and overlays events...-->
-      <!--Add additional background events according to a poisson distribution with this expectation value. (non, if parameter not set)-->
-      <parameter name="expBG" type="double"> ${ExpectedBgWW} </parameter>
-      <!--Name of the lcio input file(s)-->
-      <parameter name="InputFileNames" type="StringVec"> undefined.slcio </parameter>
-    </processor>
-    <processor name="BgOverlayWB" type="Overlay">
-      <!--Opens a second (chain of) lcio file(s) and overlays events...-->
-      <!--Add additional background events according to a poisson distribution with this expectation value. (non, if parameter not set)-->
-      <parameter name="expBG" type="double"> ${ExpectedBgWB} </parameter>
-      <!--Name of the lcio input file(s)-->
-      <parameter name="InputFileNames" type="StringVec"> undefined.slcio </parameter>
-    </processor>
-    <processor name="BgOverlayBW" type="Overlay">
-      <!--Opens a second (chain of) lcio file(s) and overlays events...-->
-      <!--Add additional background events according to a poisson distribution with this expectation value. (non, if parameter not set)-->
-      <parameter name="expBG" type="double"> ${ExpectedBgBW} </parameter>
-      <!--Name of the lcio input file(s)-->
-      <parameter name="InputFileNames" type="StringVec"> undefined.slcio </parameter>
-    </processor>
-    <processor name="BgOverlayBB" type="Overlay">
-      <!--Opens a second (chain of) lcio file(s) and overlays events...-->
-      <!--Add additional background events according to a poisson distribution with this expectation value. (non, if parameter not set)-->
-      <parameter name="expBG" type="double"> ${ExpectedBgBB} </parameter>
-      <!--Name of the lcio input file(s)-->
-      <parameter name="InputFileNames" type="StringVec"> undefined.slcio </parameter>
-    </processor>
-    <processor name="PairBgOverlay" type="Overlay">
-      <!--Opens a second (chain of) lcio file(s) and overlays events...-->
-      <!--Overlay each event with this number of background events. (default 0)-->
-      <parameter name="NumberOverlayEvents" type="int"> 1 </parameter>
-      <!--Name of the lcio input file(s)-->
-      <parameter name="InputFileNames" type="StringVec"> undefined.slcio </parameter>
-      <!--List of collections to exclude for merging-->
-      <!--Exclude BeamCalCollection because overlay is treated in the BeamCalReco itself-->
-      <parameter name="ExcludeCollections" type="StringVec">BeamCalCollection </parameter>
-    </processor>
-  </group>
   
   <!-- Tracking related : digitization, reconstruction -->
   <include ref="Tracking/TrackingDigi.xml" />
@@ -239,9 +171,9 @@
       LCFloatVec      
     </parameter>
     <parameter name="DropCollectionNames" type="StringVec">
-      ${PFAprefix}PFANewStartVertices
+      PandoraPFANewStartVertices ${PFAprefix}PFANewStartVertices
     </parameter>
-    <parameter name="FullSubsetCollections" type="StringVec" value="MCParticlesSkimmed"/>
+    <parameter name="FullSubsetCollections" type="StringVec" value="MCParticlesSkimmed ${MCParticlesSkimmed}"/>
     <parameter name="KeepCollectionNames" type="StringVec"> 
       MCParticlesSkimmed
       MarlinTrkTracks
@@ -253,7 +185,14 @@
       MCTruthRecoLink
       MCTruthClusterLink
       ClusterMCTruthLink
-    </parameter>
+      ${MCParticlesSkimmed}
+      ${MCTruthMarlinTrkTracksLink}
+      ${MarlinTrkTracksMCTruthLink}
+      ${RecoMCTruthLink}
+      ${MCTruthRecoLink}
+      ${MCTruthClusterLink}
+      ${ClusterMCTruthLink}
+   </parameter>
     <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW"/>
     <parameter name="CompressionLevel" type="int" value="6"/>
     <!--parameter name="SplitFileSizekB" type="int" value="1992294"/-->

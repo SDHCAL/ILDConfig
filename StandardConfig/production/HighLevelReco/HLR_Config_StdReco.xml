@@ -1,0 +1,21 @@
+<!-- High Level Reco collecion names -->
+<!-- Make sure Standard Reconstruction produces output with ILD Standard Reconstruction historical names -->
+<constant name="GammaGammaCandidatePi0s" value="GammaGammaCandidatePi0s" /> 
+<constant name="GammaGammaCandidateEtas" value="GammaGammaCandidateEtas" /> 
+<constant name="GammaGammaCandidateEtaPrimes" value="GammaGammaCandidateEtaPrimes" /> 
+<constant name="GammaGammaParticles" value="GammaGammaParticles" /> 
+<constant name="DistilledPFOs" value="DistilledPFOs" /> 
+
+<constant name="MCParticlesSkimmed" value="MCParticlesSkimmed" /> 
+<constant name="MCTruthMarlinTrkTracksLink" value="MCTruthMarlinTrkTracksLink" />
+<constant name="MarlinTrkTracksMCTruthLink" value="MarlinTrkTracksMCTruthLink" /> 
+<constant name="MCTruthClusterLink" value="MCTruthClusterLink" /> 
+<constant name="ClusterMCTruthLink" value="ClusterMCTruthLink" /> 
+<constant name="RecoMCTruthLink" value="RecoMCTruthLink" /> 
+<constant name="MCTruthRecoLink" value="MCTruthRecoLink" /> 
+
+<constant name="PrimaryVertex" value="PrimaryVertex" /> 
+<constant name="BuildUpVertex" value="BuildUpVertex" /> 
+<constant name="BuildUpVertex_V0" value="BuildUpVertex_V0" /> 
+
+
